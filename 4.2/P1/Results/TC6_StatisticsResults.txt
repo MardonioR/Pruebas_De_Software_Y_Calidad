@@ -1,0 +1,12 @@
+Descriptive Statistics Results
+------------------------------
+Valid items: 3000
+Invalid items ignored: 0
+
+Mean: 1.8790659927977473e+20
+Median: 1.88008049965543e+20
+Mode: No mode
+Variance (population): 1.1530904699530647e+40
+Standard deviation (population): 1.0241500714117178e+25
+
+Time elapsed (seconds): 0.005065500000000611
