@@ -20,7 +20,7 @@ HEX_DIGITS = "0123456789ABCDEF"
 
 def parse_int(text: str) -> Optional[int]:
     """
-    Parse a string into an integer without using int(text).
+    Parse a string into an integer.
 
     Supports optional leading + or - and decimal digits only.
     Returns None if invalid.
@@ -54,8 +54,6 @@ def parse_int(text: str) -> Optional[int]:
 def to_base(n: int, base: int) -> str:
     """
     Convert integer n to a string in the given base using manual division.
-
-    No use of bin(), hex(), format(), or similar helpers.
     """
     if base < 2 or base > 16:
         raise ValueError("Base must be between 2 and 16.")

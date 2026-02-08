@@ -84,7 +84,6 @@ def mean(values: List[float]) -> float:
 def sort_values(values: List[float]) -> List[float]:
     """
     Return a sorted copy using a basic O(n log n) algorithm (merge sort).
-    Avoids using built-in sorted() to keep the "basic algorithms" spirit.
     """
     if len(values) <= 1:
         return values[:]
