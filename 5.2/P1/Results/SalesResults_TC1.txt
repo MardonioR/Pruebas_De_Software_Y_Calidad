@@ -1,0 +1,23 @@
+SALES RESULTS
+============================================================
+Catalogue file : C:\Users\mardo\Documents\Repositories\Pruebas_De_Software_Y_Calidad\5.2\P1\Tests\TC1\TC1.ProductList.json
+Sales file     : C:\Users\mardo\Documents\Repositories\Pruebas_De_Software_Y_Calidad\5.2\P1\Tests\TC1\TC1.Sales.json
+------------------------------------------------------------
+Totals by SALE_ID
+------------------------------------------------------------
+SALE_ID        LINES               TOTAL
+----------------------------------------
+1                  3               83.39
+2                  2               67.57
+3                  3              144.74
+4                  3               87.23
+5                  3               94.33
+6                  8              239.04
+7                  5              182.11
+8                  7              407.30
+9                  6              851.43
+10                 6              324.72
+------------------------------------------------------------
+GRAND TOTAL: 2,481.86
+Elapsed time: 0.000353 seconds
+============================================================
