@@ -1,0 +1,60 @@
+SALES RESULTS
+============================================================
+Catalogue file : C:\Users\mardo\Documents\Repositories\Pruebas_De_Software_Y_Calidad\5.2\P1\Tests\TC1\TC1.ProductList.json
+Sales file     : C:\Users\mardo\Documents\Repositories\Pruebas_De_Software_Y_Calidad\5.2\P1\Tests\TC1\TC1.Sales.json
+------------------------------------------------------------
+Per-sale totals:
+  (No valid sales found)
+------------------------------------------------------------
+GRAND TOTAL: 0.00
+Elapsed time: 0.000312 seconds
+============================================================
+
+WARNINGS / ERRORS (execution continued):
+------------------------------------------------------------
+- Sales error (sales[0]): expected sale object, got dict
+- Sales error (sales[1]): expected sale object, got dict
+- Sales error (sales[2]): expected sale object, got dict
+- Sales error (sales[3]): expected sale object, got dict
+- Sales error (sales[4]): expected sale object, got dict
+- Sales error (sales[5]): expected sale object, got dict
+- Sales error (sales[6]): expected sale object, got dict
+- Sales error (sales[7]): expected sale object, got dict
+- Sales error (sales[8]): expected sale object, got dict
+- Sales error (sales[9]): expected sale object, got dict
+- Sales error (sales[10]): expected sale object, got dict
+- Sales error (sales[11]): expected sale object, got dict
+- Sales error (sales[12]): expected sale object, got dict
+- Sales error (sales[13]): expected sale object, got dict
+- Sales error (sales[14]): expected sale object, got dict
+- Sales error (sales[15]): expected sale object, got dict
+- Sales error (sales[16]): expected sale object, got dict
+- Sales error (sales[17]): expected sale object, got dict
+- Sales error (sales[18]): expected sale object, got dict
+- Sales error (sales[19]): expected sale object, got dict
+- Sales error (sales[20]): expected sale object, got dict
+- Sales error (sales[21]): expected sale object, got dict
+- Sales error (sales[22]): expected sale object, got dict
+- Sales error (sales[23]): expected sale object, got dict
+- Sales error (sales[24]): expected sale object, got dict
+- Sales error (sales[25]): expected sale object, got dict
+- Sales error (sales[26]): expected sale object, got dict
+- Sales error (sales[27]): expected sale object, got dict
+- Sales error (sales[28]): expected sale object, got dict
+- Sales error (sales[29]): expected sale object, got dict
+- Sales error (sales[30]): expected sale object, got dict
+- Sales error (sales[31]): expected sale object, got dict
+- Sales error (sales[32]): expected sale object, got dict
+- Sales error (sales[33]): expected sale object, got dict
+- Sales error (sales[34]): expected sale object, got dict
+- Sales error (sales[35]): expected sale object, got dict
+- Sales error (sales[36]): expected sale object, got dict
+- Sales error (sales[37]): expected sale object, got dict
+- Sales error (sales[38]): expected sale object, got dict
+- Sales error (sales[39]): expected sale object, got dict
+- Sales error (sales[40]): expected sale object, got dict
+- Sales error (sales[41]): expected sale object, got dict
+- Sales error (sales[42]): expected sale object, got dict
+- Sales error (sales[43]): expected sale object, got dict
+- Sales error (sales[44]): expected sale object, got dict
+- Sales error (sales[45]): expected sale object, got dict
