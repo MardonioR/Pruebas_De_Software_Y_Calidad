@@ -195,6 +195,111 @@ class TestHotelSystem(unittest.TestCase):
         with self.assertRaises(NotFoundError):
             system_test.display_hotel("H-BAD")
 
+    # ==========================================
+    # PRUEBAS FALTANTES DE HOTELES
+    # ==========================================
 
+    def test_modify_hotel_invalid_rooms(self):
+        """Prueba que no se puedan asignar habitaciones negativas al modificar."""
+        with self.assertRaises(ValidationError):
+            self.system.modify_hotel("H1", total_rooms=-5)
+
+    def test_modify_hotel_not_found(self):
+        """Prueba modificar un hotel que no existe."""
+        with self.assertRaises(NotFoundError):
+            self.system.modify_hotel("H-FALSO", name="No existo")
+
+    def test_delete_hotel_with_reservations(self):
+        """Prueba que no se pueda borrar un hotel si tiene reservas activas."""
+        self.system.create_customer(Customer("C_TEST", "Test", "t@t.com"))
+        self.system.create_reservation(
+            hotel_id="H1", customer_id="C_TEST", 
+            check_in=date(2026, 5, 1), check_out=date(2026, 5, 5)
+        )
+        with self.assertRaises(ValidationError) as context:
+            self.system.delete_hotel("H1")
+        self.assertEqual(str(context.exception), "Cannot delete hotel with active reservations")
+
+    # ==========================================
+    # PRUEBAS FALTANTES DE CLIENTES
+    # ==========================================
+
+    def test_modify_customer_success(self):
+        """Prueba modificar los datos de un cliente."""
+        self.system.create_customer(Customer("C2", "Viejo Nombre", "v@v.com"))
+        updated = self.system.modify_customer("C2", full_name="Nuevo Nombre")
+        self.assertEqual(updated.full_name, "Nuevo Nombre")
+        self.assertEqual(updated.email, "v@v.com") # El email no debió cambiar
+
+    def test_modify_customer_not_found(self):
+        """Prueba modificar un cliente que no existe."""
+        with self.assertRaises(NotFoundError):
+            self.system.modify_customer("C-FALSO", full_name="N/A")
+
+    def test_delete_customer_success(self):
+        """Prueba borrar un cliente exitosamente."""
+        self.system.create_customer(Customer("C_DEL", "Borrar", "b@b.com"))
+        self.system.delete_customer("C_DEL")
+        with self.assertRaises(NotFoundError):
+            self.system.display_customer("C_DEL")
+
+    def test_delete_customer_with_reservations(self):
+        """Prueba que no se pueda borrar un cliente si tiene reservas activas."""
+        self.system.create_customer(Customer("C_RES", "Reserva", "r@r.com"))
+        self.system.create_reservation(
+            hotel_id="H1", customer_id="C_RES", 
+            check_in=date(2026, 6, 1), check_out=date(2026, 6, 5)
+        )
+        with self.assertRaises(ValidationError):
+            self.system.delete_customer("C_RES")
+
+    # ==========================================
+    # PRUEBAS FALTANTES DE RESERVACIONES
+    # ==========================================
+
+    def test_create_reservation_invalid_rooms(self):
+        """Prueba que no se pueda reservar 0 o menos habitaciones."""
+        self.system.create_customer(Customer("C1", "Test", "t@t.com"))
+        with self.assertRaises(ValidationError):
+            self.system.create_reservation(
+                hotel_id="H1", customer_id="C1", 
+                check_in=date(2026, 5, 1), check_out=date(2026, 5, 5), rooms=0
+            )
+
+    def test_create_reservation_missing_ids(self):
+        """Prueba que lance error si el hotel o cliente no existen."""
+        self.system.create_customer(Customer("C_OK", "Test", "t@t.com"))
+        
+        # Hotel no existe
+        with self.assertRaises(NotFoundError):
+            self.system.create_reservation(
+                hotel_id="H-FALSO", customer_id="C_OK", 
+                check_in=date(2026, 5, 1), check_out=date(2026, 5, 5)
+            )
+            
+        # Cliente no existe
+        with self.assertRaises(NotFoundError):
+            self.system.create_reservation(
+                hotel_id="H1", customer_id="C-FALSO", 
+                check_in=date(2026, 5, 1), check_out=date(2026, 5, 5)
+            )
+
+    def test_cancel_reservation_success(self):
+        """Prueba cancelar una reservación y el wrapper cancel_reservation_for_hotel."""
+        self.system.create_customer(Customer("C_CANC", "Canc", "c@c.com"))
+        
+        # Usamos el wrapper reserve_room para probarlo también
+        res = self.system.reserve_room(
+            hotel_id="H1", customer_id="C_CANC", 
+            check_in=date(2026, 8, 1), check_out=date(2026, 8, 5)
+        )
+        
+        # Cancelamos usando el wrapper
+        self.system.cancel_reservation_for_hotel(res.reservation_id)
+        
+        # Si intentamos cancelarla de nuevo, ya no debería existir
+        with self.assertRaises(NotFoundError):
+            self.system.cancel_reservation(res.reservation_id)
+    
 if __name__ == '__main__':
     unittest.main()
