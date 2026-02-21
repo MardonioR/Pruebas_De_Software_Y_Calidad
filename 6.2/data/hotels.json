@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "city": "Guadalajara",
+    "hotel_id": "H001",
+    "name": "Grand Hotel",
+    "total_rooms": 50
+  }
+]
