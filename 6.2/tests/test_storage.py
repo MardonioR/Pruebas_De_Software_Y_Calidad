@@ -28,7 +28,7 @@ class TestJsonStore(unittest.TestCase):
             if not isinstance(data["name"], str):
                 raise ValueError("name must be a string")
             return data["name"]
-            
+
         self.loader = mock_loader
 
     def tearDown(self):
@@ -50,9 +50,9 @@ class TestJsonStore(unittest.TestCase):
     def test_load_list_invalid_json_format(self, mock_print):
         """Si el archivo no es un JSON válido, atrapa el error y retorna []."""
         self.test_file.write_text("ESTO NO ES UN JSON {ROTO}", encoding="utf-8")
-        
+
         result = self.store.load_list(item_loader=self.loader, item_name="test")
-        
+
         self.assertEqual(result, [])
         # Verificamos que se haya impreso el error en consola (Req 5)
         mock_print.assert_called_once()
@@ -62,9 +62,9 @@ class TestJsonStore(unittest.TestCase):
     def test_load_list_not_a_list(self, mock_print):
         """Si el JSON es válido pero es un diccionario en vez de lista, retorna []."""
         self.test_file.write_text('{"soy_diccionario": true}', encoding="utf-8")
-        
+
         result = self.store.load_list(item_loader=self.loader, item_name="test")
-        
+
         self.assertEqual(result, [])
         self.assertIn("ERROR: Expected a JSON list", mock_print.call_args[0][0])
 
@@ -83,13 +83,13 @@ class TestJsonStore(unittest.TestCase):
             {"name": "Elemento Bueno 2"}
         ]
         self.test_file.write_text(json.dumps(mixed_data), encoding="utf-8")
-        
+
         result = self.store.load_list(item_loader=self.loader, item_name="item")
-        
+
         # Debió cargar solo los 2 elementos buenos y saltarse los 3 malos
         self.assertEqual(len(result), 2)
         self.assertEqual(result, ["Elemento Bueno 1", "Elemento Bueno 2"])
-        
+
         # Verificamos que la consola haya gritado 3 veces por los errores
         self.assertEqual(mock_print.call_count, 3)
 
@@ -98,10 +98,10 @@ class TestJsonStore(unittest.TestCase):
     def test_load_list_os_error(self, mock_print, mock_read):
         """Si ocurre un error a nivel sistema operativo al leer, atrapa la excepción."""
         mock_read.side_effect = OSError("Permiso denegado")
-        
+
         # Creamos el archivo para que pase la validación de `.exists()`
-        self.test_file.touch() 
-        
+        self.test_file.touch()
+
         result = self.store.load_list(item_loader=self.loader, item_name="test")
         self.assertEqual(result, [])
         mock_print.assert_called_once()
@@ -115,10 +115,10 @@ class TestJsonStore(unittest.TestCase):
         class MockItem:
             def to_dict(self):
                 return {"name": "Test Item"}
-                
+
         items = [MockItem()]
         self.store.save_list(items)
-        
+
         data = json.loads(self.test_file.read_text(encoding="utf-8"))
         self.assertEqual(data, [{"name": "Test Item"}])
 
@@ -126,7 +126,7 @@ class TestJsonStore(unittest.TestCase):
         """Prueba que los objetos simples (ej. diccionarios) se guarden directo."""
         items = [{"name": "Dict Item"}]
         self.store.save_list(items)
-        
+
         data = json.loads(self.test_file.read_text(encoding="utf-8"))
         self.assertEqual(data, [{"name": "Dict Item"}])
 
@@ -135,9 +135,9 @@ class TestJsonStore(unittest.TestCase):
     def test_save_list_os_error(self, mock_print, mock_write):
         """Si falla la escritura por el SO, atrapa el error y no crashea."""
         mock_write.side_effect = OSError("Disco lleno")
-        
+
         self.store.save_list([{"name": "test"}])
-        
+
         mock_print.assert_called_once()
         self.assertIn("ERROR: Cannot write", mock_print.call_args[0][0])
 
@@ -152,7 +152,7 @@ class TestStorageHelpers(unittest.TestCase):
             {"id": "B2", "val": 20}
         ]
         result = index_by_id(items, get_id=lambda x: x["id"])
-        
+
         expected = {
             "A1": {"id": "A1", "val": 10},
             "B2": {"id": "B2", "val": 20}
@@ -162,10 +162,10 @@ class TestStorageHelpers(unittest.TestCase):
     def test_safe_get(self):
         """Prueba el comportamiento de la función safe_get."""
         dummy_dict = {"clave": "valor"}
-        
+
         # Caso 1: La llave existe
         self.assertEqual(safe_get(dummy_dict, "clave"), "valor")
-        
+
         # Caso 2: La llave NO existe (debe retornar None, no dar KeyError)
         self.assertIsNone(safe_get(dummy_dict, "no_existo"))
 

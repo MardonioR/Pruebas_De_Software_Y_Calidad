@@ -98,7 +98,7 @@ class TestReservationModel(unittest.TestCase):
         """Prepara datos de prueba para los tests de Reservation."""
         self.check_in_date = date(2026, 3, 1)
         self.check_out_date = date(2026, 3, 5)
-        
+
         self.reservation = Reservation(
             reservation_id="R001",
             hotel_id="H001",
@@ -107,7 +107,7 @@ class TestReservationModel(unittest.TestCase):
             check_out=self.check_out_date,
             rooms=2
         )
-        
+
         # El diccionario debe tener las fechas como strings (formato ISO)
         self.reservation_dict = {
             "reservation_id": "R001",
@@ -136,7 +136,7 @@ class TestReservationModel(unittest.TestCase):
         """Prueba que lance ValueError si la fecha no tiene formato ISO."""
         bad_dict = self.reservation_dict.copy()
         bad_dict["check_in"] = "01-03-2026"  # Formato incorrecto
-        
+
         with self.assertRaises(ValueError):
             Reservation.from_dict(bad_dict)
 
